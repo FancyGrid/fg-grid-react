@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Grid, GridConfig } from 'fg-grid';
 
 const FGGridReact = (props: GridConfig) => {
-  const propsRef = useRef<GridConfig>();
+  const propsRef = useRef<GridConfig>(null);
   const gridContainerRef = useRef<HTMLDivElement | null>(null);
   const gridRef = useRef<Grid | null>(null);
 

@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { Grid } from 'fg-grid';
 
 const FGGridReact = (props) => {
-    const propsRef = useRef();
+    const propsRef = useRef(null);
     const gridContainerRef = useRef(null);
     const gridRef = useRef(null);
     useEffect(() => {

@@ -4,7 +4,7 @@ var React = require('react');
 var fgGrid = require('fg-grid');
 
 const FGGridReact = (props) => {
-    const propsRef = React.useRef();
+    const propsRef = React.useRef(null);
     const gridContainerRef = React.useRef(null);
     const gridRef = React.useRef(null);
     React.useEffect(() => {
