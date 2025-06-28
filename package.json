@@ -1,6 +1,6 @@
 {
   "name": "fg-grid-react-wrapper",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "React wrapper for fg-grid",
   "type": "module",
   "main": "dist/index.cjs.js",

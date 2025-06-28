@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import { Grid, GridConfig } from 'fg-grid';
+import React, { useEffect, useRef} from 'react';
+import { Grid } from 'fg-grid';
+import type { GridConfig } from 'fg-grid';
 
-const FGGridReact = (props: GridConfig) => {
-  const propsRef = useRef<GridConfig>(null);
+const FGGridReact = <TData = any>(props: GridConfig<TData>) => {
+  const propsRef = useRef<GridConfig<TData>>(null);
   const gridContainerRef = useRef<HTMLDivElement | null>(null);
-  const gridRef = useRef<Grid | null>(null);
+  const gridRef = useRef<Grid<TData> | null>(null);
 
   useEffect(() => {
     if(!gridRef.current){
