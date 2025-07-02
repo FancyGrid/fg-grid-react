@@ -3,7 +3,29 @@
 var React = require('react');
 var fgGrid = require('fg-grid');
 
-const FGGridReact = (props) => {
+function _interopNamespaceDefault(e) {
+    var n = Object.create(null);
+    if (e) {
+        Object.keys(e).forEach(function (k) {
+            if (k !== 'default') {
+                var d = Object.getOwnPropertyDescriptor(e, k);
+                Object.defineProperty(n, k, d.get ? d : {
+                    enumerable: true,
+                    get: function () { return e[k]; }
+                });
+            }
+        });
+    }
+    n.default = e;
+    return Object.freeze(n);
+}
+
+var React__namespace = /*#__PURE__*/_interopNamespaceDefault(React);
+
+// Don't change the way of React import
+// It was done to prevent error in dist folder
+// Using forwardRef to support versions that less than 19
+const FGGridReact = React.forwardRef(function FGGridReact(props, ref) {
     const propsRef = React.useRef(null);
     const gridContainerRef = React.useRef(null);
     const gridRef = React.useRef(null);
@@ -28,8 +50,9 @@ const FGGridReact = (props) => {
             propsRef.current = props;
         }
     }, [props]);
-    return React.createElement("div", { style: { height: '100%' }, ref: gridContainerRef });
-};
+    React.useImperativeHandle(ref, () => gridRef.current, []);
+    return React__namespace.createElement("div", { style: { height: '100%' }, ref: gridContainerRef });
+});
 const getPropsChanges = (prevProps, nextProps) => {
     const changes = {};
     Object.keys(nextProps).forEach(propKey => {

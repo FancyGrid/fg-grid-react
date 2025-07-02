@@ -1,8 +1,15 @@
-import React, { useEffect, useRef} from 'react';
+// Don't change the way of React import
+// It was done to prevent error in dist folder
+import * as React from 'react';
+import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { Grid } from 'fg-grid';
 import type { GridConfig } from 'fg-grid';
 
-const FGGridReact = <TData = any>(props: GridConfig<TData>) => {
+// Using forwardRef to support versions that less than 19
+const FGGridReact = forwardRef(function FGGridReact<TData = any>(
+  props: GridConfig<TData>,
+  ref: React.Ref<Grid | undefined>
+) {
   const propsRef = useRef<GridConfig<TData>>(null);
   const gridContainerRef = useRef<HTMLDivElement | null>(null);
   const gridRef = useRef<Grid<TData> | null>(null);
@@ -10,7 +17,7 @@ const FGGridReact = <TData = any>(props: GridConfig<TData>) => {
   useEffect(() => {
     if(!gridRef.current){
       gridRef.current = new Grid({
-        renderTo: gridContainerRef.current,
+        renderTo: gridContainerRef.current!,
         ...props
       });
 
@@ -33,8 +40,12 @@ const FGGridReact = <TData = any>(props: GridConfig<TData>) => {
     }
   }, [props]);
 
+  useImperativeHandle(ref, () => gridRef.current!, []);
+
   return <div style={{height: '100%'}} ref={gridContainerRef}></div>;
-};
+})  as <TData>(
+  props: GridConfig<TData> & { ref?: React.Ref<Grid | undefined> }
+) => React.ReactElement;
 
 const getPropsChanges = (prevProps: any, nextProps: any): { [p: string]: any } => {
   const changes: {
