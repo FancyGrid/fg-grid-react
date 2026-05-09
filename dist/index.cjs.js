@@ -51,7 +51,7 @@ const FGGridReact = React.forwardRef(function FGGridReact(props, ref) {
         }
     }, [props]);
     React.useImperativeHandle(ref, () => gridRef.current, []);
-    return React__namespace.createElement("div", { style: { height: '100%' }, ref: gridContainerRef });
+    return React__namespace.createElement("div", { style: { height: '100%', overflow: 'hidden' }, ref: gridContainerRef });
 });
 const getPropsChanges = (prevProps, nextProps) => {
     const changes = {};

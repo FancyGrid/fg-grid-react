@@ -42,7 +42,7 @@ const FGGridReact = forwardRef(function FGGridReact<TData = any>(
 
   useImperativeHandle(ref, () => gridRef.current!, []);
 
-  return <div style={{height: '100%'}} ref={gridContainerRef}></div>;
+  return <div style={{height: '100%', overflow: 'hidden'}} ref={gridContainerRef}></div>;
 })  as <TData>(
   props: GridConfig<TData> & { ref?: React.Ref<Grid | undefined> }
 ) => React.ReactElement;
