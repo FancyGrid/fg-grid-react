@@ -14,14 +14,18 @@ const FGGridReact = forwardRef(function FGGridReact<TData = any>(
   const gridContainerRef = useRef<HTMLDivElement | null>(null);
   const gridRef = useRef<Grid<TData> | null>(null);
 
+  const initGrid = () => {
+    gridRef.current = new Grid({
+      renderTo: gridContainerRef.current!,
+      ...props
+    });
+
+    propsRef.current = props;
+  }
+
   useEffect(() => {
     if(!gridRef.current){
-      gridRef.current = new Grid({
-        renderTo: gridContainerRef.current!,
-        ...props
-      });
-
-      propsRef.current = props;
+      initGrid();
     }
     else{
       const propsChanges = getPropsChanges(propsRef.current, props);
@@ -40,7 +44,13 @@ const FGGridReact = forwardRef(function FGGridReact<TData = any>(
     }
   }, [props]);
 
-  useImperativeHandle(ref, () => gridRef.current!, []);
+  useImperativeHandle(ref, () => {
+    if(!gridRef.current){
+      initGrid();
+    }
+
+    return gridRef.current!
+  }, []);
 
   return <div style={{height: '100%', overflow: 'hidden'}} ref={gridContainerRef}></div>;
 })  as <TData>(

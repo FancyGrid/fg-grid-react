@@ -9,13 +9,16 @@ const FGGridReact = forwardRef(function FGGridReact(props, ref) {
     const propsRef = useRef(null);
     const gridContainerRef = useRef(null);
     const gridRef = useRef(null);
+    const initGrid = () => {
+        gridRef.current = new Grid({
+            renderTo: gridContainerRef.current,
+            ...props
+        });
+        propsRef.current = props;
+    };
     useEffect(() => {
         if (!gridRef.current) {
-            gridRef.current = new Grid({
-                renderTo: gridContainerRef.current,
-                ...props
-            });
-            propsRef.current = props;
+            initGrid();
         }
         else {
             const propsChanges = getPropsChanges(propsRef.current, props);
@@ -30,7 +33,12 @@ const FGGridReact = forwardRef(function FGGridReact(props, ref) {
             propsRef.current = props;
         }
     }, [props]);
-    useImperativeHandle(ref, () => gridRef.current, []);
+    useImperativeHandle(ref, () => {
+        if (!gridRef.current) {
+            initGrid();
+        }
+        return gridRef.current;
+    }, []);
     return React.createElement("div", { style: { height: '100%', overflow: 'hidden' }, ref: gridContainerRef });
 });
 const getPropsChanges = (prevProps, nextProps) => {
