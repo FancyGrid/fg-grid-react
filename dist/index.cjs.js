@@ -49,6 +49,15 @@ const FGGridReact = React.forwardRef(function FGGridReact(props, ref) {
                 if (propsChanges.columns) {
                     gridRef.current?.setColumns(propsChanges.columns);
                 }
+                if (propsChanges.loading === false) {
+                    gridRef.current?.hideLoading();
+                }
+                if (propsChanges.loading === true) {
+                    gridRef.current?.showLoading();
+                }
+                if (typeof propsChanges.loading === 'string') {
+                    gridRef.current?.showLoading(propsChanges.loading);
+                }
             }
             propsRef.current = props;
         }

@@ -38,6 +38,18 @@ const FGGridReact = forwardRef(function FGGridReact<TData = any>(
         if(propsChanges.columns){
           gridRef.current?.setColumns(propsChanges.columns);
         }
+
+        if(propsChanges.loading === false){
+          gridRef.current?.hideLoading();
+        }
+
+        if(propsChanges.loading === true){
+          gridRef.current?.showLoading();
+        }
+
+        if(typeof propsChanges.loading === 'string'){
+          gridRef.current?.showLoading(propsChanges.loading);
+        }
       }
 
       propsRef.current = props;
